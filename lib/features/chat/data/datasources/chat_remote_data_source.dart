@@ -75,14 +75,6 @@ class ChatRemoteDataSource {
     return [];
   }
 
-  String _extractId(dynamic item) {
-    if (item is Map) {
-      final id = item['Id_Utilisateur'] ?? item['id_utilisateur'] ?? item['id'] ?? item['Id'];
-      return id?.toString() ?? '';
-    }
-    return '';
-  }
-
   Future<List<dynamic>> _fetchAllUsers() async {
     try {
       final response = await _dio.get('/utilisateurs');

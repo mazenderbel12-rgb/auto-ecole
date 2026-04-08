@@ -111,6 +111,27 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     ));
   }
 
+  Future<void> createUser(AdminUser user) async {
+    emit(state.copyWith(isLoading: true, error: null));
+    try {
+      if (kDebugMode) print('CREATING USER: ${user.toJson()}');
+      final result = await _service.createUser(user);
+      if (kDebugMode) print('CREATE SUCCESS: ${result.fullName}');
+      
+      final updatedList = [result, ...state.users]; // Add new user to start of list
+
+      emit(state.copyWith(
+        users: updatedList,
+        filteredUsers: _applyFilter(updatedList, state.role, state.query),
+        isLoading: false,
+        lastUpdated: DateTime.now(),
+      ));
+    } catch (e) {
+      if (kDebugMode) print('CREATE ERROR: $e');
+      emit(state.copyWith(isLoading: false, error: e.toString()));
+    }
+  }
+
   Future<void> updateUser(AdminUser user) async {
     emit(state.copyWith(isLoading: true, error: null));
     try {

@@ -266,6 +266,6 @@ class _ChatRoomPageState extends State<ChatRoomPage> {
     if (date.day == now.day && date.month == now.month && date.year == now.year) {
       return "AUJOURD'HUI";
     }
-    return DateFormat('dd MMMM yyyy', 'fr_FR').format(date).toUpperCase();
+    return DateFormat('dd MMMM yyyy', 'fr').format(date).toUpperCase();
   }
 }

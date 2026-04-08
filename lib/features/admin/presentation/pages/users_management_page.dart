@@ -208,7 +208,7 @@ class _UsersManagementPageState extends State<UsersManagementPage> {
         children: [
           Container(width: 80, height: 80, decoration: BoxDecoration(color: const Color(0xFF2E86C1).withValues(alpha: 0.08), borderRadius: BorderRadius.circular(26)), child: const Icon(Icons.people_outline_rounded, size: 40, color: Color(0xFF2E86C1))),
           const SizedBox(height: 16),
-          Text('Aucun utilisateur trouvé', style: GoogleFonts.lexend(fontSize: 14, fontWeight: FontWeight.w700, color: const Color(0xFF64748B))),
+          Text('Aucun utilisateur trouvÃ©', style: GoogleFonts.lexend(fontSize: 14, fontWeight: FontWeight.w700, color: const Color(0xFF64748B))),
         ],
       ),
     );

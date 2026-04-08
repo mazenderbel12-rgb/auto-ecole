@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:application/features/auth/presentation/view_models/auth_cubit.dart';
 import '../pages/users_management_page.dart';
+import '../pages/gestion_utilisateurs_page.dart';
 
 class AdminDrawer extends StatelessWidget {
   final Function(int)? onNavigate;
@@ -70,7 +71,7 @@ class AdminDrawer extends StatelessWidget {
                   } else {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const UsersManagementPage()),
+                      MaterialPageRoute(builder: (_) => const GestionUtilisateursPage()),
                     );
                   }
                 }),
