@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:application/features/auth/presentation/view_models/auth_cubit.dart';
-import '../pages/gestion_utilisateurs_page.dart';
+import '../pages/users_management_page.dart';
 
 class AdminDrawer extends StatelessWidget {
-  final ValueChanged<int>? onNavigate;
-
+  final Function(int)? onNavigate;
   const AdminDrawer({super.key, this.onNavigate});
 
   @override
@@ -63,16 +62,17 @@ class AdminDrawer extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               children: [
-                _buildDrawerItem(Icons.dashboard_rounded, 'Tableau de Bord', () {
-                  Navigator.pop(context);
-                  onNavigate?.call(0);
-                }),
+                _buildDrawerItem(Icons.dashboard_rounded, 'Tableau de Bord', () {}),
                 _buildDrawerItem(Icons.people_alt_rounded, 'Gestion Utilisateurs', () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const GestionUtilisateursPage()),
-                  );
+                  if (onNavigate != null) {
+                    onNavigate!(1);
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const UsersManagementPage()),
+                    );
+                  }
                 }),
                 _buildDrawerItem(Icons.calendar_today_rounded, 'Planning & Séances', () {}),
                 _buildDrawerItem(Icons.assignment_rounded, 'Examens', () {}),

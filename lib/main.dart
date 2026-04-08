@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/presentation/pages/welcome_page.dart';
 import 'features/auth/presentation/view_models/auth_cubit.dart';
@@ -8,6 +7,7 @@ import 'features/admin/presentation/pages/admin_main_screen.dart';
 import 'core/architecture/base_state.dart' as base;
 import 'features/auth/data/models/user_model.dart';
 import 'core/di/injection_container.dart' as di;
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

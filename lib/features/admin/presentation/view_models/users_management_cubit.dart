@@ -68,18 +68,13 @@ class UserManagementCubit extends Cubit<UserManagementState> {
   final UserService _service;
   int _page = 1;
 
-  UserManagementCubit(this._service) : super(UserManagementState.initial('all'));
+  UserManagementCubit(this._service) : super(UserManagementState.initial('candidat'));
 
   Future<void> loadInitial(String role) async {
     _page = 1;
     emit(state.copyWith(isLoading: true, error: null, role: role));
     try {
-      if (role.trim().isEmpty || role == 'all') {
-        await loadAllUsers();
-        return;
-      }
-
-      final result = await _service.fetchAllUsers(role: role, page: _page);
+      final result = await _service.fetchAllUsers(role: '', page: _page);
       emit(state.copyWith(
         users: result.users,
         filteredUsers: _applyFilter(result.users, role, state.query),
@@ -91,37 +86,12 @@ class UserManagementCubit extends Cubit<UserManagementState> {
     }
   }
 
-  Future<void> loadAllUsers() async {
-    _page = 1;
-    emit(state.copyWith(isLoading: true, error: null, role: 'all'));
-    try {
-      final candidats = await _service.fetchAllUsers(role: 'candidat', page: _page);
-      final moniteurs = await _service.fetchAllUsers(role: 'moniteur', page: _page);
-      final personnel = await _service.fetchAllUsers(role: 'personnel', page: _page);
-      final merged = [
-        ...candidats.users,
-        ...moniteurs.users,
-        ...personnel.users,
-      ];
-
-      emit(state.copyWith(
-        users: merged,
-        filteredUsers: _applyFilter(merged, 'all', state.query),
-        hasMore: false,
-        isLoading: false,
-      ));
-    } catch (e) {
-      emit(state.copyWith(isLoading: false, error: e.toString()));
-    }
-  }
-
   Future<void> loadMore() async {
     if (state.isLoadingMore || !state.hasMore) return;
-    if (state.role.trim().isEmpty || state.role == 'all') return;
     emit(state.copyWith(isLoadingMore: true));
     try {
       _page += 1;
-      final result = await _service.fetchAllUsers(role: state.role, page: _page);
+      final result = await _service.fetchAllUsers(role: '', page: _page);
       final merged = [...state.users, ...result.users];
       emit(state.copyWith(
         users: merged,
@@ -139,27 +109,6 @@ class UserManagementCubit extends Cubit<UserManagementState> {
       query: query,
       filteredUsers: _applyFilter(state.users, state.role, query),
     ));
-  }
-
-  Future<void> createUser(AdminUser user) async {
-    emit(state.copyWith(isLoading: true, error: null));
-    try {
-      if (kDebugMode) print('CREATING USER: ${user.toJson()}');
-      final result = await _service.createUser(user);
-      if (kDebugMode) print('CREATE SUCCESS: ${result.fullName}');
-      
-      final updatedList = [result, ...state.users];
-
-      emit(state.copyWith(
-        users: updatedList,
-        filteredUsers: _applyFilter(updatedList, state.role, state.query),
-        isLoading: false,
-        lastUpdated: DateTime.now(),
-      ));
-    } catch (e) {
-      if (kDebugMode) print('CREATE ERROR: $e');
-      emit(state.copyWith(isLoading: false, error: e.toString()));
-    }
   }
 
   Future<void> updateUser(AdminUser user) async {
