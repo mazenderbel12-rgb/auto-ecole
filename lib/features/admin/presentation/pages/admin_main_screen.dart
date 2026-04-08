@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dashboard_page.dart';
-import 'users_management_page.dart';
+import 'gestion_utilisateurs_page.dart';
 import 'profile_page.dart';
 import '../../../chat/presentation/pages/chat_list_page.dart';
 import '../widgets/admin_drawer.dart';
@@ -19,7 +19,7 @@ class _AdminMainScreenState extends State<AdminMainScreen> {
 
   final List<Widget> _pages = [
     const DashboardPage(),
-    const UsersManagementPage(),
+    const GestionUtilisateursPage(),
     const ChatListPage(isSubPage: true), 
     const ProfilePage(), 
   ];

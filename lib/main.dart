@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/presentation/pages/welcome_page.dart';
 import 'features/auth/presentation/view_models/auth_cubit.dart';
@@ -10,6 +11,7 @@ import 'core/di/injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('fr', null);
   await di.init();
   runApp(const MyApp());
 }
