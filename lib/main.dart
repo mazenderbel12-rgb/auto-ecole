@@ -8,6 +8,7 @@ import 'core/architecture/base_state.dart' as base;
 import 'features/auth/data/models/user_model.dart';
 import 'core/di/injection_container.dart' as di;
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,11 +24,16 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => di.sl<AuthCubit>()..checkAuth(),
-      child: MaterialApp(
-        title: 'Driving School CRM',
-        theme: AppTheme.whiteProfessionalTheme,
-        debugShowCheckedModeBanner: false,
-        home: const AppLanding(),
+      child: ScreenUtilInit(
+        designSize: const Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, __) => MaterialApp(
+          title: 'Driving School CRM',
+          theme: AppTheme.whiteProfessionalTheme,
+          debugShowCheckedModeBanner: false,
+          home: const AppLanding(),
+        ),
       ),
     );
   }

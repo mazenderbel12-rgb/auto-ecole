@@ -8,6 +8,9 @@ import '../../features/admin/presentation/view_models/dashboard_cubit.dart';
 import '../../features/admin/presentation/view_models/users_management_cubit.dart';
 import '../../features/admin/data/datasources/user_remote_data_source.dart';
 import '../../features/admin/data/services/user_service.dart';
+import '../../features/admin/data/datasources/seance_remote_data_source.dart';
+import '../../features/admin/data/services/seance_service.dart';
+import '../../features/admin/presentation/view_models/seance_cubit.dart';
 import '../../features/chat/data/datasources/chat_remote_data_source.dart';
 import '../../features/chat/data/services/chat_service.dart';
 import '../../features/chat/presentation/view_models/chat_cubit.dart';
@@ -29,6 +32,9 @@ Future<void> init() async {
   sl.registerLazySingleton(() => UserRemoteDataSource());
   sl.registerLazySingleton(() => UserService(sl()));
   sl.registerFactory(() => UserManagementCubit(sl()));
+  sl.registerLazySingleton(() => SeanceRemoteDataSource());
+  sl.registerLazySingleton(() => SeanceService(sl()));
+  sl.registerFactory(() => SeanceCubit(sl(), sl()));
 
   // Chat
   sl.registerLazySingleton(() => ChatRemoteDataSource());

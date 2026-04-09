@@ -26,6 +26,8 @@ class AdminUser extends Equatable {
   
   // Progress/Relations
   final String? personnelCode;
+  final String? personnelId;
+  final String? candidatId;
   final List<String> assignedCandidateIds;
 
   const AdminUser({
@@ -50,6 +52,8 @@ class AdminUser extends Equatable {
     this.parkingValide,
     this.niveau,
     this.personnelCode,
+    this.personnelId,
+    this.candidatId,
     this.assignedCandidateIds = const [],
   });
 
@@ -104,6 +108,8 @@ class AdminUser extends Equatable {
       niveau: candidat?['Niveau']?.toString(),
       
       personnelCode: (user['Code_Personnel'] ?? personnel?['Code_Personnel'])?.toString(),
+      personnelId: (personnel?['Id_Personnel'] ?? personnel?['id'] ?? user['Id_Personnel'])?.toString(),
+      candidatId: (candidat?['Id_Candidat'] ?? candidat?['id'] ?? user['Id_Candidat'])?.toString(),
       assignedCandidateIds: _extractIds(user['assigned_candidates']),
     );
   }
@@ -196,5 +202,5 @@ class AdminUser extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, nom, prenom, email, login, telephone, role, status];
+  List<Object?> get props => [id, nom, prenom, email, login, telephone, role, status, personnelId, candidatId];
 }
